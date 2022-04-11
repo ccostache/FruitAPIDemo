@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace FruitApi
 {
@@ -7,7 +9,16 @@ namespace FruitApi
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            try
+            {
+                CreateHostBuilder(args).Build().Run();
+            } 
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                Console.Out.Flush();
+                throw;
+            }           
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -15,6 +26,11 @@ namespace FruitApi
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureLogging(logging =>
+                    {
+                        logging.ClearProviders();
+                        logging.AddConsole();
+                    });
                 });
     }
 }

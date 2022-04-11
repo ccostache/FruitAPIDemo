@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FruitApi", "FruitApi\FruitApi.csproj", "{09FFBED9-8F6E-4608-A73A-E54BF3CF3413}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FruitApiTest", "FruitApiTest\FruitApiTest.csproj", "{7495C6A4-9C78-444C-9215-0F7D0B43797F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FruitApi.Tests", "FruitApiTest\FruitApi.Tests.csproj", "{7495C6A4-9C78-444C-9215-0F7D0B43797F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

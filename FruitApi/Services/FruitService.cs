@@ -1,25 +1,22 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using FruitApi.Configuration;
+using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace FruitApi.Services
 {
-    public class FruitService
+    public class FruitService : IFruitService
     {
-        private const string FruitInfoUrl = "https://fruitinfo.azurewebsites.net/api/Info";
-        private const string FruitNutritionsUrl = "http://fruitnutritions.azurewebsites.net/api/nutritions";
-
-        public async Task<object> GetFruitAsync(string fruit)
+        /// <inheritdoc/>
+        public async Task<object> GetFruitAsync(string fruit, UrlSettings fruitUrls)
         {
             var c = new HttpClient();
 
             var apiInfoData = await(await c.SendAsync(new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri($"{FruitInfoUrl}?name={fruit}")
+                    RequestUri = new Uri($"{fruitUrls.FruitInfoUrl}?name={fruit}")
                 }))
                 .Content.ReadAsStringAsync();
 
@@ -28,7 +25,7 @@ namespace FruitApi.Services
             var apiNutritionData = await(await c.SendAsync(new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri($"{FruitNutritionsUrl}?type={fruit}")
+                    RequestUri = new Uri($"{fruitUrls.FruitNutritionsUrl}?type={fruit}")
                 }))
                 .Content.ReadAsStringAsync();
 
@@ -42,6 +39,13 @@ namespace FruitApi.Services
                 },
                 nutritions = apiNutritionData
             };
+        }
+
+        /// <inheritdoc/>
+        public Task<object> PostFruitAsync(string fruit, UrlSettings fruitUrls)
+        {
+            // TODO
+            throw new NotImplementedException();
         }
     }
 }
