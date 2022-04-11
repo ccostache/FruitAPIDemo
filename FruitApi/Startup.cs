@@ -50,6 +50,11 @@ namespace FruitApi
                 services.AddHttpClient();
                 services.AddScoped<IFruitService, FruitService>();
 
+                // TODO: Add options and encryptions helper services to the DI
+                // TODO: Add proxy configuration
+                // TODO: Add Authorization configuration: need to wireup the service that does the API authentication and authorization
+                // TODO: Add Acess token management policies and authorization policies (see Policies)
+
                 services.AddControllers();
                 services.AddSwaggerGen();
             }
@@ -77,7 +82,7 @@ namespace FruitApi
             app.UseAuthorization();
 
             // Register exception handling middleware
-            app.UseMiddleware<ExceptionHandlingMiddleware>();
+            // app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
