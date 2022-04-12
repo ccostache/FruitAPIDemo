@@ -1,6 +1,6 @@
-﻿namespace FruitApi.DTO.Endpoints
+﻿namespace FruitApi.DTO.Endpoints.Fruits
 {
-    public class CategorisationModel
+    public class Categorisation
     {
         public string Genus { get; set; }
         public string Family { get; set; }

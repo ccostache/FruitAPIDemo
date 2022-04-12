@@ -1,6 +1,7 @@
 ﻿using FruitApi.Configuration;
 using FruitApi.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Net.Mime;
 using System.Threading.Tasks;
@@ -13,13 +14,16 @@ namespace FruitApi.Controllers
     // TODO: this endpoint should be secured by a Policy, e.g: [Autorize(Policy = Policies.AuthorizationPolicyNames.AllowedClients)]
     public class FruitController : ControllerBase
     {
-        private readonly IFruitService _fruitService;
-        private readonly UrlSettings fruitUrls;
+        private readonly ILogger Logger;
 
-        public FruitController(IFruitService fruitService, IOptions<UrlSettings> options)
+        private readonly IFruitService _fruitService;
+        private readonly UrlSettings _fruitUrls;
+
+        public FruitController(ILogger<FruitController> logger, IFruitService fruitService, IOptions<UrlSettings> options)
         {
+            Logger = logger;
             _fruitService = fruitService;
-            fruitUrls = options.Value;
+            _fruitUrls = options.Value;
         }
 
         [HttpGet]
@@ -28,12 +32,11 @@ namespace FruitApi.Controllers
         {
             if (string.IsNullOrEmpty(fruit))
             {
-                return BadRequest("No model (fruit name) provided");
+                Logger.LogWarning($"{nameof(FruitController)} - Invalid model");
+                return BadRequest("No model provided");
             }
 
-            var fruitService = new FruitService();
-
-            return new OkObjectResult(await fruitService.GetFruitAsync(fruit, fruitUrls));
+            return new OkObjectResult(await _fruitService.GetFruitAsync(fruit, _fruitUrls));
         }
     }
 }

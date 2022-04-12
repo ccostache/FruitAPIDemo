@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Logging;
-using NLog;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -13,12 +12,7 @@ namespace FruitApi.Middleware
         /// <summary>
         /// Gets the next middleware in the pipeline
         /// </summary>
-        private RequestDelegate Next;
-
-        /// <summary>
-        /// NLog provider logger
-        /// </summary>
-        private Logger NLogger { get; } = LogManager.GetCurrentClassLogger();
+        private readonly RequestDelegate Next;
 
         /// <summary>
         /// The reason phase to return in our response when catching an exception

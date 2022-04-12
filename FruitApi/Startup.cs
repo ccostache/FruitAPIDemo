@@ -1,6 +1,6 @@
 using System;
 using FruitApi.Configuration;
-using FruitApi.Middleware;
+using FruitApi.DTO.Endpoints.Mapping;
 using FruitApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -49,6 +49,9 @@ namespace FruitApi
 
                 services.AddHttpClient();
                 services.AddScoped<IFruitService, FruitService>();
+
+                // using AutoMapper.Extensions.Microsoft.Dependencyinjection for mapping
+                services.AddAutoMapper(typeof(FruitProfileService));
 
                 // TODO: Add options and encryptions helper services to the DI
                 // TODO: Add proxy configuration
